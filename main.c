@@ -1,55 +1,53 @@
 /*
- * lcd1.c
+ * 7segment.c
  *
- * Created: 07-06-2019 12:52:17
+ * Created: 10-06-2019 10:05:25
  * Author : ganga
  */ 
-
-
-
-#include <avr/io.h>
+#ifndef F_CPU
 #define F_CPU 16000000UL
+#endif
+#include <avr/io.h>
 #include <util/delay.h>
-#define RS 7
-#define E 5
-void send_command(unsigned char command);
-void send_character(unsigned char character);
-
 
 int main(void)
 {
-    DDRC=0XFF;
-	DDRD=0XFF;
-	_delay_ms(50);
-	send_command(0x01);
-	send_command(0x38);
-	send_command(0x0E);
-	send_character(0x50);
-	send_character(0x41);
-	send_character(0x4E);
-	send_character(0x44);
-	send_character(0x55);
+    DDRD=0XFF;
+    while (1) 
+    {
+		PORTD=0X3F;
+		_delay_ms(2000);
+		PORTD=0X06;
+		_delay_ms(2000);
+		PORTD=0X5B;
+		_delay_ms(2000);
+		PORTD=0X4F;
+		_delay_ms(2000);
+		PORTD=0X66;
+		_delay_ms(2000);
+		PORTD=0X6D;
+		_delay_ms(2000);
+		PORTD=0X7D;
+		_delay_ms(2000);
+		PORTD=0X07;
+		_delay_ms(2000);
+		PORTD=0XFF;
+		_delay_ms(2000);
+		PORTD=0X67;
+		_delay_ms(2000);
+		PORTD=0X77;
+		_delay_ms(2000);
+		PORTD=0X7C;
+		_delay_ms(2000);
+		PORTD=0X39;
+		_delay_ms(2000);
+		PORTD=0X5E;
+		_delay_ms(2000);
+		PORTD=0X79;
+		_delay_ms(2000);
+		PORTD=0X71;
+		_delay_ms(2000);
+		
+			}
 }
-void send_command (unsigned char command)
-{
-	PORTC=command;
-	PORTD&=~(1<<RS);
-	PORTD|=(1<<E);
-	_delay_ms(50);
-	PORTD&=~(1<<E);
-	PORTC=0;
-}
-void send_character (unsigned char character)
-{
-	PORTC=character;
-	PORTD|=(1<<RS);
-	PORTD|=(1<<E);
-	_delay_ms(50);
-	PORTD&=~(1<<E);
-	PORTC=0;
-}
-
-	
-   
-
 
